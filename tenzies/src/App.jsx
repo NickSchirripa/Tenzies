@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './index.css'
 import Die from "./Die.jsx"
+import {nanoid} from 'nanoid'
 
 export default function App() {
 
   //generates 10 random numbers and pushes them to a new array and returns the values.
-  
+
 //function generateAllNewDice(){
  //return new Array(10)
  // .fill(0)
@@ -16,6 +17,7 @@ function generateAllNewDice(){
   return new Array(10)
   .fill(0)
   .map(()=>({
+    id:nanoid(),
     value:Math.ceil(Math.random() * 6),
     isHeld:false
   }))
@@ -26,7 +28,12 @@ function generateAllNewDice(){
 const [numbers, setNumbers] = useState(generateAllNewDice())
 
 //maps over the array of random numbers and renders the Die Comp, and gives a random number in the array to each Die comp Value Prop
-const diceElement = numbers.map(numberDie=> <Die value={numberDie.value}/>)
+const diceElement = numbers.map(numberDie=> 
+  <Die
+     key={numberDie.id}
+     value={numberDie.value} 
+     isHeld={numberDie.isHeld}
+     />)
 
 
 
