@@ -50,11 +50,13 @@ const diceElement = numbers.map(numberDie=>
 // So when this is used it will change state, and thus render new numebrs for the diceElement.
 //we will use this as a callback function for then button below, which when clicked will trigger the function
 function rollDice(){
-  setNumbers(generateAllNewDice())
+  setNumbers(oldDice => oldDice.map(dice=> dice.isHeld === true ? dice: {...dice, value:Math.ceil(Math.random() * 6) }))
 }
 
   return(
     <main>
+        <h1 className="title">Tenzies</h1>
+        <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
     <div className='gridContainer'>
     {diceElement}  
     
