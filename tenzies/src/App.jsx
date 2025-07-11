@@ -12,7 +12,8 @@ export default function App() {
  // .fill(0)
   //.map(()=>Math.floor(Math.random()*6)+1)
 
-//change the function above, so it returns an object with properties. One property being a value, with our random number, and another a boolean
+//change the function above, so it returns an object with properties. One properties: 
+// 1.being a value that gives us a random number,  2. a boolean 3. a unique id
 function generateAllNewDice(){
   return new Array(10)
   .fill(0)
@@ -23,6 +24,13 @@ function generateAllNewDice(){
   }))
 }
 
+//function that gets object id of clicked button. Then checks that id and maps over the array, 
+// to change the isHeld Property of the object that has a mathcing id- or the clicked one
+function hold(id){
+  setNumbers(prevDie=> prevDie.map(prevDie =>{
+    return prevDie.id === id ? {...prevDie, isHeld: !prevDie.isHeld}: prevDie
+  }))
+}
 
 //assigns the random number array to a useState variable
 const [numbers, setNumbers] = useState(generateAllNewDice())
@@ -33,6 +41,7 @@ const diceElement = numbers.map(numberDie=>
      key={numberDie.id}
      value={numberDie.value} 
      isHeld={numberDie.isHeld}
+     clicked={()=>hold(numberDie.id)}
      />)
 
 
@@ -54,6 +63,7 @@ function rollDice(){
     </main>
   )
 }
+
 
 
 
